@@ -24,8 +24,8 @@
     NSEntityDescription *toDoEntity = [NSEntityDescription entityForName:@"ToDo" inManagedObjectContext:self.managedObjectContext];
     NSManagedObject *toDoObject = [[NSManagedObject alloc]initWithEntity:toDoEntity insertIntoManagedObjectContext:self.managedObjectContext];
     
-    [toDoObject setValue:self.titleLabel forKey:@"title"];
-    [toDoObject setValue:self.description forKey:@"toDoDescription"];
+    [toDoObject setValue:self.titleLabel.text forKey:@"title"];
+    [toDoObject setValue:self.descriptionLabel.text forKey:@"toDoDescription"];
     
     [self.managedObjectContext save:nil];
     

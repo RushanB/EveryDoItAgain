@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -74,30 +75,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pID-WS-4Tu">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pID-WS-4Tu">
                                 <rect key="frame" x="67" y="134" width="240" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter priority number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5X4-l7-rHV">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter priority number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5X4-l7-rHV">
                                 <rect key="frame" x="67" y="203" width="240" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Enter Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YgE-ZH-laz">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YgE-ZH-laz">
                                 <rect key="frame" x="67" y="269" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6JP-ef-3Xz">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6JP-ef-3Xz">
                                 <rect key="frame" x="145" y="432" width="84" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
@@ -106,6 +103,21 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YgE-ZH-laz" firstAttribute="top" secondItem="5X4-l7-rHV" secondAttribute="bottom" constant="36" id="6aq-7E-F1o"/>
+                            <constraint firstItem="5X4-l7-rHV" firstAttribute="leading" secondItem="0z1-f0-CBw" secondAttribute="leadingMargin" constant="51" id="BOe-1F-I2F"/>
+                            <constraint firstItem="rpN-yS-AkS" firstAttribute="top" secondItem="6JP-ef-3Xz" secondAttribute="bottom" constant="205" id="Fra-Oc-KCS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6JP-ef-3Xz" secondAttribute="trailing" constant="130" id="IFI-qP-8na"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pID-WS-4Tu" secondAttribute="trailing" constant="52" id="Noc-4S-ITT"/>
+                            <constraint firstItem="pID-WS-4Tu" firstAttribute="leading" secondItem="0z1-f0-CBw" secondAttribute="leadingMargin" constant="51" id="SLc-gQ-Ce5"/>
+                            <constraint firstItem="YgE-ZH-laz" firstAttribute="leading" secondItem="0z1-f0-CBw" secondAttribute="leadingMargin" constant="51" id="X44-HH-zex"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5X4-l7-rHV" secondAttribute="trailing" constant="52" id="YaW-iC-vqE"/>
+                            <constraint firstItem="pID-WS-4Tu" firstAttribute="top" secondItem="bbj-Ba-2NP" secondAttribute="bottom" constant="70" id="afk-JK-OyK"/>
+                            <constraint firstItem="5X4-l7-rHV" firstAttribute="top" secondItem="pID-WS-4Tu" secondAttribute="bottom" constant="39" id="gM8-ai-AjM"/>
+                            <constraint firstItem="6JP-ef-3Xz" firstAttribute="top" secondItem="YgE-ZH-laz" secondAttribute="bottom" constant="35" id="k7d-47-fRf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YgE-ZH-laz" secondAttribute="trailing" constant="52" id="ueP-6z-MfV"/>
+                            <constraint firstItem="6JP-ef-3Xz" firstAttribute="leading" secondItem="0z1-f0-CBw" secondAttribute="leadingMargin" constant="129" id="vC7-qV-CH5"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="descriptionLabel" destination="YgE-ZH-laz" id="cdW-Ns-UWr"/>

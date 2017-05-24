@@ -8,14 +8,45 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
-#import "EveryDoItAgain+CoreDataModel.h"
-#import "AppDelegate.h"
 
-@interface MasterViewController ()
+@interface MasterViewController () <UIApplicationDelegate>
 
 @end
 
 @implementation MasterViewController
+
+//TESTING
+//- (void)createData {
+//    
+//    ToDo *t1 = [[ToDo alloc] initWithContext:self.managedObjectContext];
+//    t1.title = @"Fred";
+//    t1.toDoDescription = @"Meeting with fred at 9am";
+//    t1.priorityNumber = 1;
+//
+//    [self saveContext];
+//}
+//
+//- (void)saveContext {
+//    NSError *error = nil;
+//    if ([self.managedObjectContext hasChanges] && ![self.managedObjectContext save:&error]) {
+//        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+//        abort();
+//    }
+//}
+//
+//- (void)printResultsFromArray:(NSArray <ToDo *>*)list {
+//    for (ToDo *todo in list) {
+//        NSLog(@"title: %@ description: %@ priority: %@", todo.title, todo.toDoDescription, @(todo.priorityNumber));
+//    }
+//}
+//
+//- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    NSArray <ToDo*>* todos = [self.managedObjectContext executeFetchRequest:request error:nil];
+//    [self printResultsFromArray:t1];
+//    [self createData];
+//    return YES;
+//}
+//
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,11 +55,13 @@
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
-
+    self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
+    [super viewWillAppear:animated];
 }
 
 
@@ -44,17 +77,23 @@
 }
 
 
-
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
+        ToDo *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        DetailViewController *controller = (DetailViewController *)[segue destinationViewController];//topViewController];
         [controller setDetailItem:object];
+        
+        controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+        controller.navigationItem.leftItemsSupplementBackButton = YES;
+        
     }else if([[segue identifier] isEqualToString:@"addToDo"]){
-//        self.
+        self.aVC = segue.destinationViewController;
+        [[segue destinationViewController]setManagedObjectContext:self.managedObjectContext];
+        [self.tableView reloadData];
     }
 }
 
@@ -74,8 +113,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    
-    [self configureCell:cell atIndexPath:indexPath];
+    ToDo *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:event];
     
     return cell;
 }
@@ -94,17 +133,15 @@
             
         NSError *error = nil;
         if (![context save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
 }
 
--(void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    ToDo *toDo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = toDo.title;
+-(void)configureCell:(UITableViewCell *)cell atIndexPath:(ToDo *)indexPath{
+    cell.textLabel.text = indexPath.title;
     
 }
 
@@ -175,12 +212,11 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:anObject];
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
             break;
     }
 }
@@ -190,14 +226,5 @@
     [self.tableView endUpdates];
 }
 
-/*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    // In the simplest, most efficient, case, reload the table view.
-    [self.tableView reloadData];
-}
- */
 
 @end
